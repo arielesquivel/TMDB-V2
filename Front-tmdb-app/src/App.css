@@ -1,0 +1,144 @@
+footer {
+  display: flex;
+  align-content: center;
+  flex-wrap: nowrap;
+  flex-direction: row;
+  align-items: stretch;
+  justify-content: space-around;
+}
+.Register {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.Register h2 {
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.Register form {
+  background-color: rgba(255, 255, 255, 0.8); /* Fondo semitransparente */
+  border-radius: 8px;
+  padding: 20px;
+  text-align: center;
+}
+
+.Register label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+.Register input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  outline: none;
+}
+
+.Register button {
+  width: 100%;
+  padding: 10px;
+  background-color: #0074d9;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.Register button:hover {
+  background-color: #0056a0;
+}
+.login {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.login h2 {
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.login form {
+  background-color: rgba(255, 255, 255, 0.8); /* Fondo semitransparente */
+  border-radius: 8px;
+  padding: 20px;
+  text-align: center;
+}
+
+.login label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+.login input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  outline: none;
+}
+
+.login button {
+  width: 100%;
+  padding: 10px;
+  background-color: #0074d9;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.login button:hover {
+  background-color: #0056a0;
+}
+
+.login a {
+  text-decoration: none;
+  color: #0074d9;
+  font-weight: bold;
+  margin-top: 10px;
+  display: block;
+}
+
+.login a:hover {
+  color: #0056a0;
+}
+
+.Footer_diseñado {
+  background-color: #333;
+  color: #fff;
+  padding: 20px;
+  text-align: center;
+}
+
+.Footer_diseñado p {
+  margin: 5px;
+}
+
+.Footer_diseñado a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.Footer_diseñado a:hover {
+  text-decoration: underline;
+}
