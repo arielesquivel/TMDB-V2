@@ -1,12 +1,9 @@
-//App
+//App js
 import React, { useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Navbar from "./componentes/Navbar";
 import Register from "./componentes/Register";
 import Login from "./componentes/Login";
-import Card from "./componentes/Card";
 import Home from "./componentes/Home";
-
 import Favortios from "./componentes/Favortios";
 import { useDispatch } from "react-redux";
 import { setUser } from "./store/user";

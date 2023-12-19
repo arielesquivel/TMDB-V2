@@ -1,3 +1,4 @@
+//Favoritos Store redux
 import { createAction, createReducer } from "@reduxjs/toolkit";
 
 export const setFavorites = createAction("setFavorites");

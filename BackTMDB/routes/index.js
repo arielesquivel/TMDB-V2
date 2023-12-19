@@ -116,7 +116,7 @@ router.get("/favoritos", validateUser, async (req, res) => {
           return response.data;
         } catch (error) {
           console.error(
-            `Error al obtener detalles para la película con ID ${tmdbId}:`,
+            `Error al obtener detalles para la película ${tmdbId}:`,
             error.message
           );
           // En caso de error, devuelve null para indicar un fallo
@@ -124,10 +124,8 @@ router.get("/favoritos", validateUser, async (req, res) => {
         }
       })
     );
-
-    // Filtra los resultados (películas que no se pudieron obtener)
+    // Filtra los resultados
     const validTmdbMovies = tmdbMovies.filter((movie) => movie !== null);
-
     return res.json(validTmdbMovies);
   } catch (error) {
     console.error(error);

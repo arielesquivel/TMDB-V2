@@ -12,7 +12,7 @@ function Favoritos() {
   const favorites = useSelector((state) => state.favoritos);
 
   useEffect(() => {
-    const fetchFavorites = async () => {
+    const favorites = async () => {
       try {
         // Realiza la solicitud para obtener las películas favoritas
         const response = await axios.get(
@@ -27,7 +27,7 @@ function Favoritos() {
       }
     };
 
-    fetchFavorites();
+    favorites();
   }, [dispatch]);
 
   const clearFavorites = () => {
@@ -40,6 +40,7 @@ function Favoritos() {
       <div className="mt-4">
         <h2>Películas Favoritas</h2>
         <div className="row">
+          {/*mapea el obj los favoritos y muestra las que estan en favoritos */}
           {Object.values(favorites).map((favMovie) => (
             <div key={favMovie.id} className="col-md-4">
               <img
@@ -52,6 +53,7 @@ function Favoritos() {
               <h4 className="text-center">{favMovie.title}</h4>
             </div>
           ))}
+          {/*borra todo el listado de favortitos */}
           <button
             onClick={clearFavorites}
             type="button"

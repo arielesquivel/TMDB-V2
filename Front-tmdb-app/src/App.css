@@ -1,11 +1,4 @@
-footer {
-  display: flex;
-  align-content: center;
-  flex-wrap: nowrap;
-  flex-direction: row;
-  align-items: stretch;
-  justify-content: space-around;
-}
+/*Registrate diseño*/
 .Register {
   display: flex;
   flex-direction: column;
@@ -58,6 +51,7 @@ footer {
 .Register button:hover {
   background-color: #0056a0;
 }
+/*Login diseño*/
 .login {
   display: flex;
   flex-direction: column;
@@ -122,7 +116,7 @@ footer {
 .login a:hover {
   color: #0056a0;
 }
-
+/*Footer diseño css*/
 .Footer_diseñado {
   background-color: #333;
   color: #fff;
@@ -141,4 +135,12 @@ footer {
 
 .Footer_diseñado a:hover {
   text-decoration: underline;
+}
+footer {
+  display: flex;
+  align-content: center;
+  flex-wrap: nowrap;
+  flex-direction: row;
+  align-items: stretch;
+  justify-content: space-around;
 }

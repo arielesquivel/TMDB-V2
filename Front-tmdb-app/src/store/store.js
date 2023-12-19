@@ -1,3 +1,4 @@
+//Store redux
 import { configureStore } from "@reduxjs/toolkit";
 import logger from "redux-logger";
 import reduxUser from "./user";

@@ -5,10 +5,11 @@ import Navbar from "./Navbar";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setFavorites } from "../store/favoritos";
-
+//Link de TMDB Y CLAVE
 const API_URL = "http://api.themoviedb.org/3/";
 const API_KEY = "7ac73a60aa590575fb0efba44f9fe9a0";
 const URL_IMAGE = "https://image.tmdb.org/t/p/original";
+//Card que continene toda la libreria ademas de rendedizar individual
 
 function Card() {
   const users = useSelector((state) => state.user.user);
@@ -80,9 +81,10 @@ function Card() {
     <>
       <Navbar />
 
-      {/* Buscador de películas  y por año*/}
+      {/* Buscador de películas y serie por nombre y por año*/}
       <div>
         <form className="form-inline" onSubmit={handleFilters}>
+          {/*filtro por nombre */}
           <input
             className="form-control mr-sm-2"
             type="search"
@@ -90,6 +92,7 @@ function Card() {
             aria-label="Search"
             onChange={(e) => setMovieSearch(e.target.value)}
           />
+          {/*filtro por año */}
           <input
             className="form-control mr-sm-2"
             type="text"
@@ -150,6 +153,8 @@ function Card() {
                           Agregar a favoritos
                         </button>
                       )}
+
+                      {/*btn que te lleva a la vista individual de las peliculas*/}
                       <Link to={`/movie/${movie.id}`}>
                         <button
                           onClick={() => selectMovie(movie)}
@@ -162,6 +167,9 @@ function Card() {
                     </>
                   ) : (
                     <Link to={`/movie/${movie.id}`}>
+                      {/*btn que te lleva a la vista individual de 
+                      las peliculas sin loguearte, solo muestra la 
+                      informacion de la pelicula*/}
                       <button
                         onClick={() => selectMovie(movie)}
                         type="button"

@@ -19,7 +19,6 @@ function Navbar(user) {
 
       // Después de cerrar sesión, redirige a la página de inicio de sesión
       dispatch(delUser(""));
-      //console.log(dispatch(delUser()));
       navigate("/login");
     } catch (error) {
       console.error("Error al cerrar sesión:", error.message);
@@ -45,6 +44,7 @@ function Navbar(user) {
             <Link className="navbar-brand" to="/">
               TMDB-Plataforma
             </Link>
+            {/*si el usuruario esta logeado muestra favoritos y cerrar sesion*/}
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               {users ? (
                 <li className="nav-item">
@@ -61,6 +61,7 @@ function Navbar(user) {
                 </li>
               ) : (
                 <>
+                  {/*si el usuario no esta registrado muestra registrate y login*/}
                   <li className="nav-item">
                     <a
                       className="nav-link active"
