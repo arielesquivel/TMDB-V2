@@ -8,30 +8,29 @@ import Favortios from "./componentes/Favortios";
 import { useDispatch } from "react-redux";
 import { setUser } from "./store/user";
 import axios from "axios";
+import CardHome from "./componentes/CardHome";
 function App() {
   const dispatch = useDispatch();
-  //useEffect para que se ejecute al cargar la página.
+  //useEffect para que se ejecute al cargar la página.persistencia de usuario
   useEffect(() => {
     axios
       .get("http://localhost:5000/api/me", { withCredentials: true })
       .then((response) => {
         dispatch(setUser(response.data));
-        console.log(response);
-        console.log(response);
       })
       .catch((error) => {
         console.log(error);
       });
-  }, []);
+  }, [dispatch]);
   return (
     <>
       <Router>
         <Routes>
-          <Route path="/" element={<Home />} />
           <Route path="/movie/:id" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/login/register" element={<Register />} />
           <Route path="/favoritos" element={<Favortios />} />
+          <Route path="/" element={<CardHome />} />
         </Routes>
       </Router>
     </>

@@ -2,10 +2,12 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Navbar from "./Navbar";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setFavorites } from "../store/favoritos";
-//Link de TMDB Y CLAVE
+import Footer from "./Footer";
+
+// Link de TMDB Y CLAVE
 const API_URL = "http://api.themoviedb.org/3/";
 const API_KEY = "7ac73a60aa590575fb0efba44f9fe9a0";
 const URL_IMAGE = "https://image.tmdb.org/t/p/original";
@@ -20,16 +22,20 @@ function Card() {
   const [selectedMovie, setSelectedMovie] = useState();
   const [filterYear, setFilterYear] = useState();
 
+  // Obtener la función de navegación desde React Router
+  const navigate = useNavigate();
+
+  // Función para obtener información de películas desde TMDB
   const apiMovies = async () => {
     try {
-      let type = "search";
-      if (!movieSearch) {
-        type = "discover";
+      let type = "discover";
+      if (movieSearch) {
+        type = "search";
       }
       const peliculas = await axios.get(`${API_URL}/${type}/movie`, {
         params: {
-          api_key: API_KEY,
           query: movieSearch,
+          api_key: API_KEY,
           year: filterYear,
         },
       });
@@ -40,12 +46,13 @@ function Card() {
     }
   };
 
-  // Previsualizador de películas
+  // Función para seleccionar una película y mostrar detalles
   const selectMovie = async (movie) => {
     setSelectedMovie(movie);
     console.log(movie);
   };
 
+  // Manejar el envío del formulario de filtros
   const handleFilters = async (e) => {
     e.preventDefault();
     const results = await apiMovies();
@@ -68,50 +75,53 @@ function Card() {
     console.log("Ya no está en favoritos", movie);
   };
 
-  // Traer las películas
+  // Obtener las películas al cargar el componente o al cambiar la búsqueda
   useEffect(() => {
     const fetchMovies = async () => {
       const moviesData = await apiMovies();
       setMovies(moviesData);
     };
     fetchMovies();
-  }, [movieSearch]);
+  }, []);
 
   return (
     <>
+      {/* Barra de navegación */}
       <Navbar />
 
-      {/* Buscador de películas y serie por nombre y por año*/}
+      {/* Contenedor principal */}
       <div>
+        {/* Formulario de búsqueda */}
         <form className="form-inline" onSubmit={handleFilters}>
-          {/*filtro por nombre */}
+          {/* Filtro por nombre */}
           <input
             className="form-control mr-sm-2"
             type="search"
-            placeholder="Search"
+            placeholder="Buscar Película o Serie"
             aria-label="Search"
             onChange={(e) => setMovieSearch(e.target.value)}
           />
-          {/*filtro por año */}
+          {/* Filtro por año */}
           <input
             className="form-control mr-sm-2"
             type="text"
-            placeholder="Year"
+            placeholder="Películas o Serie por Año"
             aria-label="Year"
             value={filterYear}
             onChange={(e) => setFilterYear(e.target.value)}
           />
 
-          <button className="btn btn-primary" type="submit">
-            Search
+          {/* Botón para buscar películas */}
+          <button className="btn btn-light" type="submit">
+            Buscar películas
           </button>
         </form>
 
-        {/* Vista individual de las películas */}
+        {/* Vista detallada de una película seleccionada */}
         <div className="container mt-2">
           {selectedMovie ? (
             <div>
-              <h1 className="display-4">{selectedMovie.title}</h1>
+              <h1 className="display-2">{selectedMovie.title}</h1>
               <img
                 src={`${URL_IMAGE}${selectedMovie.poster_path}`}
                 alt={selectedMovie.title}
@@ -133,7 +143,7 @@ function Card() {
                   />
                   <h4 className="text-center">{movie.title}</h4>
 
-                  {/*solo si es usuario deja el boton  de favotitos y cerrar sesion*/}
+                  {/* Botones para agregar/quitar de favoritos y ver más detalles */}
                   {users ? (
                     <>
                       {favorites[movie.id] ? (
@@ -154,22 +164,21 @@ function Card() {
                         </button>
                       )}
 
-                      {/*btn que te lleva a la vista individual de las peliculas*/}
-                      <Link to={`/movie/${movie.id}`}>
-                        <button
-                          onClick={() => selectMovie(movie)}
-                          type="button"
-                          className="btn btn-light"
-                        >
-                          Más info
-                        </button>
-                      </Link>
+                      {/* Botón para ver más detalles */}
+                      <button
+                        onClick={() => {
+                          selectMovie(movie);
+                          navigate(`/movie/${movie.id}`);
+                        }}
+                        type="button"
+                        className="btn btn-light"
+                      >
+                        Más info
+                      </button>
                     </>
                   ) : (
                     <Link to={`/movie/${movie.id}`}>
-                      {/*btn que te lleva a la vista individual de 
-                      las peliculas sin loguearte, solo muestra la 
-                      informacion de la pelicula*/}
+                      {/* Botón para ver más detalles sin estar logueado */}
                       <button
                         onClick={() => selectMovie(movie)}
                         type="button"
@@ -185,6 +194,7 @@ function Card() {
           )}
         </div>
       </div>
+      <Footer />
     </>
   );
 }

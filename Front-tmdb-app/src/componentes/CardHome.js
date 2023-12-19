@@ -1,8 +1,7 @@
-//Home js
 import React from "react";
 import Card from "./Card";
 
-function Home() {
+function CardHome() {
   return (
     <>
       <Card />
@@ -10,4 +9,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default CardHome;
