@@ -22,7 +22,7 @@ function Card() {
   const [selectedMovie, setSelectedMovie] = useState();
   const [filterYear, setFilterYear] = useState();
 
-  // Obtener la función de navegación desde React Router
+  // Obtener la función de navegación
   const navigate = useNavigate();
 
   // Función para obtener información de películas desde TMDB
@@ -49,7 +49,7 @@ function Card() {
   // Función para seleccionar una película y mostrar detalles
   const selectMovie = async (movie) => {
     setSelectedMovie(movie);
-    console.log(movie);
+    console.log("la pelicula se selcciono", movie.title);
   };
 
   // Manejar el envío del formulario de filtros
@@ -58,13 +58,15 @@ function Card() {
     const results = await apiMovies();
     if (results.length) {
       setMovies(results);
+    } else {
+      alert("No se encontraron resultados");
     }
   };
 
   // Añadir a favoritos
   const addToFavorites = (movie) => {
     dispatch(setFavorites({ ...favorites, [movie.id]: movie }));
-    console.log("Se añadió a favoritos", movie);
+    console.log("Se añadió a favoritos");
   };
 
   // Eliminar de favoritos
@@ -72,7 +74,7 @@ function Card() {
     const updatedFavorites = { ...favorites };
     delete updatedFavorites[movie.id];
     dispatch(setFavorites(updatedFavorites));
-    console.log("Ya no está en favoritos", movie);
+    console.log("Ya no está en favoritos");
   };
 
   // Obtener las películas al cargar el componente o al cambiar la búsqueda
@@ -80,8 +82,10 @@ function Card() {
     const fetchMovies = async () => {
       const moviesData = await apiMovies();
       setMovies(moviesData);
+
+      console.log("useeffect---", moviesData);
     };
-    fetchMovies();
+    fetchMovies(setMovies);
   }, []);
 
   return (

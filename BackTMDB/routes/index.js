@@ -6,7 +6,7 @@ const { generateToken } = require("../config/envs");
 const API_URL = "http://api.themoviedb.org/3/";
 const API_KEY = "7ac73a60aa590575fb0efba44f9fe9a0";
 //ruta filtrado de peliculas
-router.get("/movies", async (req, res) => {
+router.get("/filter", async (req, res) => {
   try {
     const { query, year, with_genres } = req.query;
     const response = await axios.get(`${API_URL}/search/movie`, {
