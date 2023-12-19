@@ -5,6 +5,8 @@ import Register from "./componentes/Register";
 import Login from "./componentes/Login";
 import Card from "./componentes/Card";
 import Home from "./componentes/Home";
+import Home2 from "./componentes/Home2";
+
 import Favortios from "./componentes/Favortios";
 import { useDispatch } from "react-redux";
 import { setUser } from "./store/user";
@@ -25,15 +27,17 @@ function App() {
       });
   }, []);
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Navbar />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/login/register" element={<Register />} />
-        <Route path="/movie/:id" element={<Home />} />
-        <Route path="/favoritos" element={<Favortios />} />
-      </Routes>
-    </Router>
+    <>
+      <Router>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/movie/:id" element={<Home2 />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/login/register" element={<Register />} />
+          <Route path="/favoritos" element={<Favortios />} />
+        </Routes>
+      </Router>
+    </>
   );
 }
 
