@@ -14,12 +14,12 @@ function Card() {
   const users = useSelector((state) => state.user.user);
   const dispatch = useDispatch();
   const favorites = useSelector((state) => state.favoritos);
-
   const [movies, setMovies] = useState([]);
   const [movieSearch, setMovieSearch] = useState("");
   const [selectedMovie, setSelectedMovie] = useState();
+  const [filterYear, setFilterYear] = useState();
 
-  const apiMovies = async (movieSearch) => {
+  const apiMovies = async () => {
     try {
       let type = "search";
       if (!movieSearch) {
@@ -29,6 +29,7 @@ function Card() {
         params: {
           api_key: API_KEY,
           query: movieSearch,
+          year: filterYear,
         },
       });
 
@@ -44,12 +45,11 @@ function Card() {
     console.log(movie);
   };
 
-  // Buscador de películas
-  const searchMovies = async (e) => {
+  const handleFilters = async (e) => {
     e.preventDefault();
-    const results = await apiMovies(movieSearch);
+    const results = await apiMovies();
     if (results.length) {
-      selectMovie(results[0]);
+      setMovies(results);
     }
   };
 
@@ -70,7 +70,7 @@ function Card() {
   // Traer las películas
   useEffect(() => {
     const fetchMovies = async () => {
-      const moviesData = await apiMovies(movieSearch);
+      const moviesData = await apiMovies();
       setMovies(moviesData);
     };
     fetchMovies();
@@ -80,9 +80,9 @@ function Card() {
     <>
       <Navbar />
 
-      {/* Buscador de películas */}
+      {/* Buscador de películas  y por año*/}
       <div>
-        <form className="form-inline" onSubmit={searchMovies}>
+        <form className="form-inline" onSubmit={handleFilters}>
           <input
             className="form-control mr-sm-2"
             type="search"
@@ -90,6 +90,15 @@ function Card() {
             aria-label="Search"
             onChange={(e) => setMovieSearch(e.target.value)}
           />
+          <input
+            className="form-control mr-sm-2"
+            type="text"
+            placeholder="Year"
+            aria-label="Year"
+            value={filterYear}
+            onChange={(e) => setFilterYear(e.target.value)}
+          />
+
           <button className="btn btn-primary" type="submit">
             Search
           </button>
@@ -121,7 +130,7 @@ function Card() {
                   />
                   <h4 className="text-center">{movie.title}</h4>
 
-                  {/*solo si es usuario deja el boton */}
+                  {/*solo si es usuario deja el boton  de favotitos y cerrar sesion*/}
                   {users ? (
                     <>
                       {favorites[movie.id] ? (

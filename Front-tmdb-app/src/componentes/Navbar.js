@@ -1,10 +1,11 @@
+//Navbar js
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AiOutlineTeam } from "react-icons/ai";
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import { delUser } from "../store/user";
-import Card from "./Card";
+
 function Navbar(user) {
   const navigate = useNavigate();
   const dispatch = useDispatch();

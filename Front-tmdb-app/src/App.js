@@ -1,3 +1,4 @@
+//App
 import React, { useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./componentes/Navbar";
@@ -5,7 +6,6 @@ import Register from "./componentes/Register";
 import Login from "./componentes/Login";
 import Card from "./componentes/Card";
 import Home from "./componentes/Home";
-import Home2 from "./componentes/Home2";
 
 import Favortios from "./componentes/Favortios";
 import { useDispatch } from "react-redux";
@@ -31,7 +31,7 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/movie/:id" element={<Home2 />} />
+          <Route path="/movie/:id" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/login/register" element={<Register />} />
           <Route path="/favoritos" element={<Favortios />} />

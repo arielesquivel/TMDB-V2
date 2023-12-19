@@ -3,7 +3,26 @@ const router = express.Router();
 const User = require("../models/user");
 const { validateUser } = require("../middleware/auth");
 const { generateToken } = require("../config/envs");
+const API_URL = "http://api.themoviedb.org/3/";
+const API_KEY = "7ac73a60aa590575fb0efba44f9fe9a0";
+//ruta filtrado de peliculas
+router.get("/movies", async (req, res) => {
+  try {
+    const { query, year, with_genres } = req.query;
+    const response = await axios.get(`${API_URL}/search/movie`, {
+      params: {
+        api_key: API_KEY,
+        query,
+        year,
+      },
+    });
 
+    res.json(response.data.results);
+  } catch (error) {
+    console.error("error buscando las pelis:", error);
+    res.status(500).json({ error: "servidor error" });
+  }
+});
 //registar un usuario
 router.post("/register", (req, res) => {
   console.log("body", req.body);
@@ -106,7 +125,7 @@ router.get("/favoritos", validateUser, async (req, res) => {
       })
     );
 
-    // Filtra los resultados nulos (películas que no se pudieron obtener)
+    // Filtra los resultados (películas que no se pudieron obtener)
     const validTmdbMovies = tmdbMovies.filter((movie) => movie !== null);
 
     return res.json(validTmdbMovies);
