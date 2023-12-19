@@ -172,7 +172,7 @@ function Card() {
                       <button
                         onClick={() => {
                           selectMovie(movie);
-                          navigate(`/movie/${movie.id}`);
+                          navigate(`/movie/${movie.title}`);
                         }}
                         type="button"
                         className="btn btn-light"
