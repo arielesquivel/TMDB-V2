@@ -29,7 +29,7 @@ function App() {
           <Route path="/movie/:title" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/login/register" element={<Register />} />
-          <Route path="/favoritos" element={<Favortios />} />
+          <Route path="/me/favorito" element={<Favortios />} />
           <Route path="/" element={<CardHome />} />
         </Routes>
       </Router>

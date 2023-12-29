@@ -5,6 +5,7 @@ import "../App.css";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setUser, delUser } from "../store/user";
+import GoogleAtuth from "./GoogleAtuth";
 function Login() {
   const dispatch = useDispatch();
   const [redirect, setRedirect] = useState(false);
@@ -68,6 +69,7 @@ function Login() {
 
           <button type="submit">Iniciar Sesión</button>
         </form>
+        <GoogleAtuth />
       </div>
     </>
   );

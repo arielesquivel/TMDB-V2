@@ -48,7 +48,7 @@ function Navbar(user) {
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               {users ? (
                 <li className="nav-item">
-                  <Link to="/favoritos" className="nav-link">
+                  <Link to="/me/favorito" className="nav-link">
                     Favoritos
                   </Link>
                   <Link

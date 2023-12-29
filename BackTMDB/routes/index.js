@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const User = require("../models/user");
+const Favorito = require("../models/favoritos");
 const { validateUser } = require("../middleware/auth");
 const { generateToken } = require("../config/envs");
 const API_URL = "http://api.themoviedb.org/3/";
@@ -64,7 +65,7 @@ router.post("/logout", (req, res) => {
 });
 
 // favoritos
-router.post("/favoritos", validateUser, async (req, res) => {
+router.post("/me/favorito", validateUser, async (req, res) => {
   try {
     const email = req.user.email;
     const { tmdb_id } = req.body;
@@ -89,7 +90,7 @@ router.post("/favoritos", validateUser, async (req, res) => {
   }
 });
 
-router.get("/favoritos", validateUser, async (req, res) => {
+router.get("/me/favorito", validateUser, async (req, res) => {
   try {
     const email = req.user.email;
     const user = await User.findOne({ where: { email } });
@@ -102,38 +103,25 @@ router.get("/favoritos", validateUser, async (req, res) => {
 
     const userId = user.id;
 
-    const favoritos = await Favorito.findAll({ where: { user_id: userId } });
+    const favoritos = await Favorito.findAll({
+      where: { user_id: userId },
+    });
 
     const tmdbIds = favoritos.map((favorito) => favorito.tmdb_id);
 
-    // Consulta de TMDB para obtener detalles de las películas
-    const tmdbMovies = await Promise.all(
-      tmdbIds.map(async (tmdbId) => {
-        try {
-          const response = await axios.get(
-            `https://api.themoviedb.org/3/movie/${tmdbId}?api_key=7ac73a60aa590575fb0efba44f9fe9a0&language=es`
-          );
-          return response.data;
-        } catch (error) {
-          console.error(
-            `Error al obtener detalles para la película ${tmdbId}:`,
-            error.message
-          );
-          // En caso de error, devuelve null para indicar un fallo
-          return null;
-        }
-      })
-    );
-    // Filtra los resultados
-    const validTmdbMovies = tmdbMovies.filter((movie) => movie !== null);
-    return res.json(validTmdbMovies);
+    // tmdbIds esta definido
+    if (!tmdbIds) {
+      return res
+        .status(500)
+        .json({ message: "Error: tmdbIds no está definido" });
+    }
   } catch (error) {
     console.error(error);
     return res.status(500).json(error);
   }
 });
 
-router.delete("/favoritos", validateUser, async (req, res) => {
+router.delete("/me/favorito", validateUser, async (req, res) => {
   try {
     const email = req.user.email;
     const { tmdb_id } = req.body;

@@ -9,9 +9,11 @@ const initialState = {};
 const favoritesReducer = createReducer(initialState, (builder) => {
   builder
     .addCase(setFavorites, (state, action) => {
+      console.log("------------", action.payload);
       return action.payload;
     })
     .addCase(delFavorites, () => {
+      console.log("-----------", delFavorites);
       return {};
     });
 });

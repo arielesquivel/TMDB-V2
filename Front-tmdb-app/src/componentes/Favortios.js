@@ -12,22 +12,24 @@ function Favoritos() {
   const favorites = useSelector((state) => state.favoritos);
 
   useEffect(() => {
-    const favorites = async () => {
+    const fetchFavorites = async () => {
       try {
-        // Realiza la solicitud para obtener las películas favoritas
-        const response = await axios.get(
-          "http://localhost:5000/api/favoritos",
-          {
+        const response = await axios
+          .get("http://localhost:5000/api/me/favorito", {
             withCredentials: true,
-          }
-        );
-        dispatch(setFavorites(response.data));
+          })
+          .then((response) => {
+            dispatch(setFavorites(response.data));
+            console.log(
+              "dispach axios-------",
+              dispatch(setFavorites(response.data))
+            );
+          });
       } catch (error) {
-        console.error("Error al obtener películas favoritas:", error.message);
+        console.log("Detalles del error:", error);
       }
+      fetchFavorites();
     };
-
-    favorites();
   }, [dispatch]);
 
   const clearFavorites = () => {
