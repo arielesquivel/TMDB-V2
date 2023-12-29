@@ -1,35 +1,23 @@
 import React, { useEffect, useState } from "react";
 import { GoogleLogin } from "react-google-login";
-
+import { gapi } from "gapi-script";
 function GoogleAuth() {
   const clientID =
     "409976640079-obpeoku0ipdg4mrfbs6d07l6gqo1pnh1.apps.googleusercontent.com";
   const [user, setUser] = useState({});
 
   useEffect(() => {
-    const start = () => {
-      if (window.gapi) {
-        window.gapi.auth2.init({
-          client_id: clientID,
-        });
-      } else {
-        setTimeout(start, 100);
-      }
-    };
-
-    if (window.gapi) {
-      start();
-    } else {
-      window.addEventListener("load", start);
+    function start() {
+      gapi.client.init({
+        clientID: clientID,
+        scope: "",
+      });
     }
-
-    return () => {
-      window.removeEventListener("load", start);
-    };
-  }, [clientID]);
+    gapi.load("client:auth2", start);
+  });
 
   const onSuccess = (response) => {
-    setUser(response.profileObj);
+    setUser("se inicio correctamente", response.profileObj);
   };
 
   const onFailure = (error) => {

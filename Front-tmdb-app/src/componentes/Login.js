@@ -66,10 +66,9 @@ function Login() {
               onChange={handleInputChange}
             />
           </div>
-
+          <GoogleAtuth />
           <button type="submit">Iniciar Sesión</button>
         </form>
-        <GoogleAtuth />
       </div>
     </>
   );
